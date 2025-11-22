@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bishop Barham Donation System </title>
+<style>
+    body { font-family: Arial; background: #eef2f7; margin:0; padding:0; }
+    header { background:#003366; color:white; padding:15px; text-align:center; }
+    nav { background:#0055aa; display:flex; justify-content:center; flex-wrap:wrap; }
+    nav button { background:#0055aa; color:white; border:none; padding:10px 15px; margin:5px; cursor:pointer; border-radius:5px; }
+    nav button.active { background:#003366; font-weight:bold; }
+    .sections { display:flex; overflow-x:auto; padding:20px; gap:20px; }
+    section { min-width:300px; flex:0 0 auto; background:white; padding:15px; border-radius:10px; display:none; }
+    section.active { display:block; }
+    .form-box { margin-top:10px; }
+    input, textarea, button { width:100%; padding:8px; margin-top:8px; border-radius:5px; border:1px solid #ccc; }
+    button { background:#003366; color:white; border:none; cursor:pointer; }
+    table { width:100%; border-collapse: collapse; margin-top:10px; }
+    th, td { padding:10px; border-bottom:1px solid #ddd; text-align:left; }
+    th { background:#003366; color:white; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Bishop Barham Donation System</h1>
+    
+</header>
+
+<nav>
+    <button class="tab-btn active" data-tab="home">Home</button>
+    <button class="tab-btn" data-tab="donor-register">Donor Registration</button>
+    <button class="tab-btn" data-tab="donor-login">Donor Login</button>
+    <button class="tab-btn" data-tab="donation-form">Donation Form</button>
+    <button class="tab-btn" data-tab="admin-login">Admin Login / Setup</button>
+    <button class="tab-btn" data-tab="view-donations">View Donations</button>
+</nav>
+
+<div class="sections">
+<section id="home" class="active">
+    
+    <h2>Welcome to Bishop Barham Donation System</h2>
+ 
+    <!-- Replace feature list with UCU logo -->
+    <div style="text-align:center; margin-top:20px;">
+        <img src="images/ucu image.png" 
+             alt="Uganda_Christian_University_Logo" style="max-width:200px;">
+    </div>
+
+
+</section>
+
+<section id="donor-register">
+    <h2>Donor Registration</h2>
+    <div class="form-box">
+        <input type="text" placeholder="Full Name">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button onclick="alert('Registration simulated in prototype')">Register</button>
+    </div>
+</section>
+
+<section id="donor-login">
+    <h2>Donor Login</h2>
+    <div class="form-box">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button onclick="alert('Login simulated in prototype')">Login</button>
+    </div>
+</section>
+
+<section id="donation-form">
+    <h2>Donation Form</h2>
+    <div class="form-box">
+        <input type="text" placeholder="Donor Name">
+        <input type="email" placeholder="Email">
+        <input type="number" placeholder="Amount">
+        <textarea placeholder="Purpose of Donation"></textarea>
+        <button onclick="alert('Donation submitted (simulated)')">Submit Donation</button>
+    </div>
+</section>
+
+<section id="admin-login">
+    <h2>Admin Login / Setup</h2>
+    
+    <!-- Initial Admin Setup -->
+    <div class="form-box" id="admin-setup-form">
+        <h3>Initial Admin Setup</h3>
+        <input type="text" id="admin-name" placeholder="Admin Full Name">
+        <input type="email" id="admin-email" placeholder="Admin Email">
+        <input type="password" id="admin-pass" placeholder="Password">
+        <button onclick="createAdmin()">Create Admin</button>
+    </div>
+
+    <!-- Admin Login -->
+    <div class="form-box" id="admin-login-form">
+        <h3>Admin Login</h3>
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <button onclick="alert('Admin login simulated')">Login</button>
+    </div>
+</section>
+
+<section id="view-donations">
+    <h2>View Donations</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Donor</th>
+            <th>Amount</th>
+            <th>Purpose</th>
+            <th>Receipt</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>mercy arineitwe</td>
+            <td>UGX 150,000</td>
+            <td>Tuition Support</td>
+            <td><button onclick="alert('Receipt preview simulated')">Print Receipt</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Ahumuza Benedict</td>
+            <td>UGX 200,000</td>
+            <td>Library Fund</td>
+            <td><button onclick="alert('Receipt preview simulated')">Print Receipt</button></td>
+        </tr>
+    </table>
+</section>
+</div>
+
+<script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('section');
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabs.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const tab = btn.getAttribute('data-tab');
+            sections.forEach(s => s.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+        });
+    });
+
+    // Admin setup simulation using localStorage
+    const adminSetupForm = document.getElementById('admin-setup-form');
+    const adminLoginForm = document.getElementById('admin-login-form');
+
+    function checkAdmin() {
+        if(localStorage.getItem('adminExists')) {
+            adminSetupForm.style.display = 'none';
+            adminLoginForm.style.display = 'block';
+        } else {
+            adminSetupForm.style.display = 'block';
+            adminLoginForm.style.display = 'none';
+        }
+    }
+
+    function createAdmin() {
+        const name = document.getElementById('admin-name').value;
+        const email = document.getElementById('admin-email').value;
+        const pass = document.getElementById('admin-pass').value;
+        if(!name || !email || !pass) {
+            alert('Fill all fields for admin setup');
+            return;
+        }
+        localStorage.setItem('adminExists', 'true');
+        alert(`Admin ${name} created (simulated)`);
+        checkAdmin();
+    }
+
+    checkAdmin();
+</script>
+
+</body>
+</html>
